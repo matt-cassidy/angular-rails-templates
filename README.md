@@ -27,6 +27,10 @@ In your application, add a dependency to the `templates` module.
 Loading this module will automatically load all your templates into angular's `$templateCache`.  
 Angular uses this parameter when checking for the presence of templates before making an HTTP call.
 
+To change the base path of the template cache name create an initialize with the following
+
+    AngularRailsTemplates.base_path = Rails.root + "/app/assets/javascripts/sub-folder"
+
 ## How it works
 
 Because of the way angular's modules work, we cannot create one templates module which would load all the templates.  
