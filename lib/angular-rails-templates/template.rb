@@ -10,12 +10,9 @@ module AngularRailsTemplates
     def prepare; end
 
     def evaluate(scope, locals, &block)
-      key         = file.split('/').last
-      module_name = "#{configuration.module_name}-#{key.split('.')[0...-1].join('.')}"
-
       <<-EOS
 angular.module(#{module_name.inspect}, []).run(["$templateCache",function($templateCache) {
-  $templateCache.put(#{key.inspect}, #{data.to_json});
+  $templateCache.put(#{template_name.inspect}, #{data.to_json});
 }]);
 
 if (typeof window.AngularRailsTemplates === 'undefined') {
@@ -26,6 +23,21 @@ window.AngularRailsTemplates.push(#{module_name.inspect});
     end
 
     private
+
+    def module_name
+      @module_name ||= "#{configuration.module_name}-#{template_name}"
+    end
+
+    def template_name
+      @template_name ||= (
+       f = file.gsub(configuration.base_path, '')
+
+      paths = f.split(File::SEPARATOR)
+      paths[-1] = paths.last.split('.').first
+
+      paths.join(File::SEPARATOR) + '.html')
+    end
+
     def configuration
       ::Rails.configuration.angular_templates
     end

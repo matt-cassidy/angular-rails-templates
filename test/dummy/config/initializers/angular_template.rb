@@ -1,0 +1,1 @@
+AngularRailsTemplates.base_path = "#{Rails.root}/app/assets/javascripts"

@@ -27,6 +27,7 @@ class PrecompileTest < TestCase
     assert_match /window\.AngularRailsTemplates/, contents
     assert_match /angular\.module/, contents
     assert_match /template\.html/, contents
+    assert_match /sub-folder\/sub_template.html/, contents
   end
 
   def app_path
@@ -44,4 +45,5 @@ class PrecompileTest < TestCase
   def test_precompile_succeeds_in_test_environment
     precompile! 'test'
   end
+
 end

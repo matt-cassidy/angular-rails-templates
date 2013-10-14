@@ -8,5 +8,10 @@ module AngularRailsTemplates
       Sprockets.register_engine '.ajs', AngularRailsTemplates::Template
       Sprockets.register_engine '.html', AngularRailsTemplates::Template
     end
+
+    config.after_initialize do |app|
+      path = AngularRailsTemplates.base_path.presence || "#{app.root}/app/assets/javascripts/"
+      config.angular_templates.base_path = File.join(path,'')
+    end
   end
 end
